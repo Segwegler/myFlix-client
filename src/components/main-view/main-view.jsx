@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -15,6 +16,16 @@ export default class MainView extends React.Component {
       login: true,
       register: false
     };
+  }
+
+  componentDidMount(){
+    axios.get('https://nsegler-myflixdb.herokuapp.com/movies').then(response => {
+      this.setState({
+        movies: response.data
+      });
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   setSelectedMovie(newSelectedMovie){
