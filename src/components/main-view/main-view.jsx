@@ -1,8 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { MyNavBar } from '../nav-bar/nav-bar';
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 
@@ -13,7 +19,7 @@ export default class MainView extends React.Component {
       movies:[],
       selectedMovie: null,
       user: null,
-      login: true,
+      login: false,
       register: false
     };
   }
@@ -26,6 +32,14 @@ export default class MainView extends React.Component {
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  home(){
+    this.setState({
+      selectedMovie: null,
+      login: false,
+      register: false
+    })
   }
 
   setSelectedMovie(newSelectedMovie){
@@ -53,7 +67,9 @@ export default class MainView extends React.Component {
   //will be used to clear user session
   onLoggedOut(){
     this.setState({
-      user:null
+      user:null,
+      login: false,
+      register: false
     });
   }
 
@@ -74,28 +90,50 @@ export default class MainView extends React.Component {
   render(){
     const { movies, selectedMovie, user, login, register } = this.state;
 
+    const nav = <MyNavBar user={user} home={()=>this.home()} goToReg={(reg) =>{this.setRegPrompt(reg); this.setLoginPrompt(false);}} setLoginPrompt={(e) => this.setLoginPrompt(e)} onLoggedOut = {() => this.onLoggedOut()} />
+
     if (login)//checks if the login prompt is active
-       return <LoginView onLoggedIn={user => this.onLoggedIn(user)} goToReg={() =>{this.setRegPrompt(true); this.setLoginPrompt(false);}}/>;
+      return (
+        <div>
+          {nav}
+          <Container>
+            <LoginView onLoggedIn={user => this.onLoggedIn(user)} goToReg={() =>{this.setRegPrompt(true); this.setLoginPrompt(false);}}/>
+          </Container>
+        </div>
+      );
 
     if (register)//checks if the registration prompt is active
-      return <RegistrationView onRegister={register => this.onRegister(register)}/>
+      return (
+        <div>
+          {nav}
+          <Container>
+            <RegistrationView onRegister={register => this.onRegister(register)}/>
+          </Container>
+        </div>
+      );
 
     if(movies.length ===0)
       return <div className="main-view"/>;
 
     return (
         <div className="main-view">
-          {user
-            ? <div> {user} <button onClick = {() => this.onLoggedOut()}>Log out</button></div>
-            : <button onClick = {() => this.setLoginPrompt(true)}>Log in or register</button>
-
-          }
+          {nav}
+          <Container>
+          <Row className="justify-content-md-center">
           {selectedMovie
-            ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie);}}/>
+            ? (
+                  <Col md={8}>
+                    <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie);}}/>
+                  </Col>
+              )
             : movies.map(movie => (
-              <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) =>{this.setSelectedMovie(movie);} } />
-            ))
+                <Col key={movie._id} md={3} className="p-1">
+                  <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) =>{this.setSelectedMovie(movie);} } />
+                </Col>
+              ))
           }
+          </Row>
+          </Container>
         </div>
     );
   }
