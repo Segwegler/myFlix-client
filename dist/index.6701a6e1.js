@@ -27148,62 +27148,79 @@ function MyNavBar(props) {
                     },
                     __self: this
                 }),
-                /*#__PURE__*/ _jsxRuntime.jsxs(_navbarDefault.default.Collapse, {
+                /*#__PURE__*/ _jsxRuntime.jsx(_navbarDefault.default.Collapse, {
                     id: "basic-navbar-nav",
                     __source: {
                         fileName: "src/components/nav-bar/nav-bar.jsx",
                         lineNumber: 33
                     },
                     __self: this,
-                    children: [
-                        /*#__PURE__*/ _jsxRuntime.jsxs(_navDefault.default, {
-                            className: "me-auto",
-                            __source: {
-                                fileName: "src/components/nav-bar/nav-bar.jsx",
-                                lineNumber: 34
-                            },
-                            __self: this,
-                            children: [
-                                /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                    children: /*#__PURE__*/ _jsxRuntime.jsxs(_navDefault.default, {
+                        className: "container-fluid",
+                        __source: {
+                            fileName: "src/components/nav-bar/nav-bar.jsx",
+                            lineNumber: 34
+                        },
+                        __self: this,
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Item, {
+                                __source: {
+                                    fileName: "src/components/nav-bar/nav-bar.jsx",
+                                    lineNumber: 35
+                                },
+                                __self: this,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                     onClick: ()=>home()
                                     ,
-                                    __source: {
-                                        fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 35
-                                    },
-                                    __self: this,
-                                    children: "Home"
-                                }),
-                                /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
                                         lineNumber: 36
                                     },
                                     __self: this,
-                                    children: "Categorys"
-                                }),
-                                /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                                    children: "Home"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Item, {
+                                __source: {
+                                    fileName: "src/components/nav-bar/nav-bar.jsx",
+                                    lineNumber: 38
+                                },
+                                __self: this,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 37
+                                        lineNumber: 39
+                                    },
+                                    __self: this,
+                                    children: "Categorys"
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Item, {
+                                __source: {
+                                    fileName: "src/components/nav-bar/nav-bar.jsx",
+                                    lineNumber: 41
+                                },
+                                __self: this,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                                    __source: {
+                                        fileName: "src/components/nav-bar/nav-bar.jsx",
+                                        lineNumber: 42
                                     },
                                     __self: this,
                                     children: "Directors"
                                 })
-                            ]
-                        }),
-                        /*#__PURE__*/ _jsxRuntime.jsxs(_navDefault.default, {
-                            className: "justify-content-end",
-                            __source: {
-                                fileName: "src/components/nav-bar/nav-bar.jsx",
-                                lineNumber: 40
-                            },
-                            __self: this,
-                            children: [
-                                props.user ? /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Item, {
+                                className: "ml-auto",
+                                __source: {
+                                    fileName: "src/components/nav-bar/nav-bar.jsx",
+                                    lineNumber: 44
+                                },
+                                __self: this,
+                                children: props.user ? /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 42
+                                        lineNumber: 46
                                     },
                                     __self: this,
                                     children: props.user
@@ -27212,17 +27229,24 @@ function MyNavBar(props) {
                                     ,
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 43
+                                        lineNumber: 47
                                     },
                                     __self: this,
                                     children: "Login"
-                                }),
-                                props.user ? /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                                })
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Item, {
+                                __source: {
+                                    fileName: "src/components/nav-bar/nav-bar.jsx",
+                                    lineNumber: 50
+                                },
+                                __self: this,
+                                children: props.user ? /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                     onClick: ()=>logout(true)
                                     ,
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 47
+                                        lineNumber: 52
                                     },
                                     __self: this,
                                     children: "logout"
@@ -27231,14 +27255,14 @@ function MyNavBar(props) {
                                     ,
                                     __source: {
                                         fileName: "src/components/nav-bar/nav-bar.jsx",
-                                        lineNumber: 48
+                                        lineNumber: 53
                                     },
                                     __self: this,
                                     children: "Register"
                                 })
-                            ]
-                        })
-                    ]
+                            })
+                        ]
+                    })
                 })
             ]
         })
