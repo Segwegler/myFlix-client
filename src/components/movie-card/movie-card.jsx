@@ -8,7 +8,7 @@ export default class MovieCard extends React.Component {
     const {movie , onMovieClick} = this.props;
 
     return (
-      <Card>
+      <Card className="h-100">
         <Card.Img variant="top" src={movie.ImagePath ? movie.ImagePath : "https://via.placeholder.com/150x250" } />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
