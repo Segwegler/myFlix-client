@@ -4,23 +4,27 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
-export function LoginView(props) {
+import axios from 'axios';
+
+export default function LoginView(props) {
 
   const [username, setUsername ] = useState('');
   const [password, setPassword ] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username , password);
-    //send request to server for login
-    //then call props.onLoggedIn(uername)
 
-     props.onLoggedIn(username);
+    axios.post('https://nsegler-myflixdb.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    }).then( response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+      props.onBackClick()
+    }).catch( e => {
+      console.log('user not found');
+    });
   };
-
-  const goToReg = (e) => {
-    props.goToReg();
-  }
 
     return(
       <Card className="mt-5">
