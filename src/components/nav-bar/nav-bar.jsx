@@ -3,21 +3,25 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 
-export function MyNavBar(props){
+import { Link } from 'react-router-dom';
+
+export default function MyNavBar(props){
 
   const home = () => {
     props.home();
   }
 
   const openLogin =(e) => {
-    props.setLoginPrompt(e);
+    //props.setLoginPrompt(e);
+    window.open('/login','_self');
   }
 
   const openReg = (e) => {
-    props.goToReg(e);
+    //props.goToReg(e);
+    window.open('/register','_self');
   }
 
-  const logout = (e) => {
+  const logout = () => {
     props.onLoggedOut();
   }
 
@@ -33,24 +37,24 @@ export function MyNavBar(props){
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
             <Nav.Item>
-              <Nav.Link onClick = {() => home()}>Home</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link >Categorys</Nav.Link>
+              <Nav.Link >Genres</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link >Directors</Nav.Link>
             </Nav.Item>
             <Nav.Item className="ml-auto">
               { props.user
-                  ?<Nav.Link>{props.user}</Nav.Link>
-                  :<Nav.Link onClick = {() => openLogin(true)}>Login</Nav.Link>
+                  ?<Nav.Link href={`/user`}>{props.user}</Nav.Link>
+                  :<Nav.Link href='/login'>Login</Nav.Link>
               }
             </Nav.Item>
             <Nav.Item>
               {props.user
-                  ? <Nav.Link onClick = {() => logout(true)}>logout</Nav.Link>
-                  : <Nav.Link onClick = {() => openReg(true)}>Register</Nav.Link>
+                  ? <Nav.Link onClick = {() => logout()}>logout</Nav.Link>
+                  : <Nav.Link href='/register'>Register</Nav.Link>
               }
             </Nav.Item>
 
