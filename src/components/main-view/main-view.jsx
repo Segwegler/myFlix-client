@@ -92,8 +92,12 @@ export default class MainView extends React.Component {
   }
 
   addMovie(id){
-    axios.post(`https://nsegler-myflixdb.herokuapp.com/users/${localStorage.getItem('user')}/movies/${id}`,{
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+    if(!localStorage.getItem('user')){
+      window.open("/login","_self");
+      return ;
+    }
+    axios.post(`https://nsegler-myflixdb.herokuapp.com/users/${localStorage.getItem('user')}/movies/${id}`,{},
+      {headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
     }).then(response =>{
         console.log(response);
     }).catch(function (error){
