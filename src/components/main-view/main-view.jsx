@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 import LoginView from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
