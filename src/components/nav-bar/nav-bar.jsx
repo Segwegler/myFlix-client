@@ -32,19 +32,14 @@ export default function MyNavBar(props){
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand>MyMDB</Navbar.Brand>
+        <Navbar.Brand>MyFlix</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
             <Nav.Item>
                 <Nav.Link href="/">Home</Nav.Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link >Genres</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link >Directors</Nav.Link>
-            </Nav.Item>
+
             <Nav.Item className="ml-auto">
               { props.user
                   ?<Nav.Link href={`/user`}>{props.user}</Nav.Link>
