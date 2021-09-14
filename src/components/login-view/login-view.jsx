@@ -22,7 +22,7 @@ export default function LoginView(props) {
       Password: password
     }).then( response => {
       props.onLoggedIn(response.data);
-      props.onBackClick();
+      window.open("/","_self");
     }).catch( e => {
       console.log('user not found',e);
       setError(true);
