@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 export default class DirectorView extends React.Component {
   render(){
     const {director, onBackClick} = this.props;
-
+    
     return (
       <Card>
         <Card.Body>
@@ -25,7 +25,6 @@ DirectorView.propTypes = {
     Name: PropTypes.string.isRequired,
     Bio: PropTypes.string.isRequired,
     Birth: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired
   }).isRequired,
   onBackClick: PropTypes.func.isRequired
 };
