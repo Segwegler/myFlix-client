@@ -4,11 +4,23 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
-export default class MovieView extends React.Component {
+import { connect } from 'react-redux';
 
+const mapStateToProps = state => {
+  const { movies , user} = state;
+  return { movies , user};
+};
 
-  render(){
-    const {movie, onBackClick} = this.props;
+function MovieView(props) {
+
+    const {movie, user, onBackClick, addMovie, removeMovie} = props;
+
+    let favorite = false;
+    if(Object.keys(user).indexOf("FavoriteMovies") > -1){
+      if(user.FavoriteMovies.includes(movie._id)){
+        favorite = true;
+      }
+    }
 
     return (
       <Card>
@@ -23,12 +35,18 @@ export default class MovieView extends React.Component {
           <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
+          { favorite
+           ? <Button variant="danger" onClick={() => removeMovie(movie._id)}>Remove</Button>
+           : <Button onClick={() => addMovie(movie._id)}>Add to favorites</Button>
+          }
         </Card.Body>
       </Card>
     );
 
-  }
+
 }
+
+export default connect(mapStateToProps)(MovieView);
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
