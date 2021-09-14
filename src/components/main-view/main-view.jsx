@@ -148,7 +148,7 @@ class MainView extends React.Component {
             <Route path="/login" render={({history}) => {
               if("Username" in user) return <Redirect to="/" />
               return <Col md={8}>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} login={(username, password) => this.login(username, password)} onBackClick={() => history.goBack()}/>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} login={(username, password) => this.login(username, password)} />
               </Col>
             }} />
 
