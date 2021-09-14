@@ -3,30 +3,30 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
-export default function MyNavBar(props){
+const mapStateToProps = state => {
+  const { user } = state;
+  return { user };
+};
 
-  const home = () => {
-    props.home();
-  }
+
+function MyNavBar(props){
+
+  const { user, onLoggedOut } = props
 
   const openLogin =(e) => {
-    //props.setLoginPrompt(e);
     window.open('/login','_self');
   }
 
   const openReg = (e) => {
-    //props.goToReg(e);
     window.open('/register','_self');
   }
 
   const logout = () => {
-    props.onLoggedOut();
-  }
-
-  const goToUser = (e) => {
-    //will go to a users profile
+    onLoggedOut();
   }
 
   return (
@@ -41,13 +41,13 @@ export default function MyNavBar(props){
             </Nav.Item>
 
             <Nav.Item className="ml-auto">
-              { props.user
-                  ?<Nav.Link href={`/user`}>{props.user}</Nav.Link>
+              {("Username" in props.user)
+                  ?<Nav.Link href={`/user`}>{props.user.Username}</Nav.Link>
                   :<Nav.Link href='/login'>Login</Nav.Link>
               }
             </Nav.Item>
             <Nav.Item>
-              {props.user
+              {("Username" in props.user)
                   ? <Nav.Link onClick = {() => logout()}>logout</Nav.Link>
                   : <Nav.Link href='/register'>Register</Nav.Link>
               }
@@ -59,3 +59,5 @@ export default function MyNavBar(props){
     </Navbar>
   );
 }
+
+export default connect(mapStateToProps)(MyNavBar);
