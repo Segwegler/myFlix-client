@@ -1,15 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+
+import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom';
 
-export default function UserView(props) {
-  const [userData, setUserData] = useState({});
+import MovieCard from '../movie-card/movie-card';
+
+const mapStateToProps = state => {
+  const { movies, user } = state;
+  return { movies, user };
+};
+
+const API_ADDRESS = "https://nsegler-myflixdb.herokuapp.com";
+
+function UserView(props) {
+
+  const { movies, user } = props;
+
+  const [userData, setUserData] = useState(user);
   const [form   , setForm  ] = useState(null);
   const [errors , setErrors] = useState({});
 
@@ -24,84 +40,65 @@ export default function UserView(props) {
     })
   }
 
-  const getUser = () => {
-    axios.get(`https://nsegler-myflixdb.herokuapp.com/users/${localStorage.getItem('user')}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
-    }).then(response => {
-      setUserData(response.data);
-    }).catch(function (error) {
-      console.log(error);
-    });
-  }
-
+  //props user if they want to delete their account then deletes it
   const deleteUser = () => {
-    axios.delete(`https://nsegler-myflixdb.herokuapp.com/users/${localStorage.getItem('user')}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
-    }).then(response => {
-      props.onLoggedOut();
-    }).catch(function (error) {
-      console.log(error);
-    });
+    if(confirm("Are you sure you want to delete your account?")){
+      axios.delete(`${API_ADDRESS}/users/${localStorage.getItem('user')}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+      }).then(response => {
+        props.onLoggedOut();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
+  //adds the list of favorite movies
   const showFavorites = () => {
-    if(!userData.FavoriteMovies || userData.FavoriteMovies.length < 1){
+    if(!user.FavoriteMovies || user.FavoriteMovies.length < 1){
       return (<>
         <Card.Text> Check out some movies on the home page</Card.Text>
         <Button onClick={()=> {window.open("/","_self")}}> Home</Button>
       </>);
     }
     var faves = [];
-    userData.FavoriteMovies.map(f => (
+    user.FavoriteMovies.map(f => (
       faves.push(props.movies.find(m => m._id === f))
     ))
     return (<Row>
       {faves.map(m => (
-        <Col md={3} key={m._id} className="p-1">
-          <Card className="h-100">
-            <Card.Img src={m.ImagePath} variant="top" />
-            <Card.Body>
-              <Card.Title>{m.Title}</Card.Title>
-              <Link to={`/movies/${m._id}`}>
-                <Button variant="link">Open</Button>
-              </Link>
-              <Button variant="danger" onClick={() => removeMovie(m._id)}>Remove</Button>
-            </Card.Body>
-          </Card>
+        <Col md={3}  key={m._id} className="p-1">
+          <MovieCard movie={m} removeMovie={id => props.removeMovie(id)}/>
         </Col>
       ))}
     </Row>);
   }
 
+
   const updateUser = (updateObject) => {
-    axios.put(`https://nsegler-myflixdb.herokuapp.com/users/${localStorage.getItem('user')}`,
+    axios.put(`${API_ADDRESS}/users/${localStorage.getItem('user')}`,
       updateObject,
       { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`} }
       ).then(response => {
         setUserData(response.data);
         props.onUpdate(response.data);
-        console.log(response.data);
+        window.open("/user","_self")
     }).catch(function (error) {
       console.log(error);
     });
   }
 
   const removeMovie = (id) => {
-    if(userData.FavoriteMovies.indexOf(id) > -1){
       props.removeMovie(id);
-    }
   }
 
   //Error checking functions
-  //checks if the
+  //checks if the string is contains anything other then letters or numbers
   const isAlphaNumeric = (str) => {
     return /^(\d|\w)+$/.test(str);
   };
 
+  //email checking function
   const isValidEmail = (mail) => {
     return /^\S+@\S+\.\S+$/.test(mail);
   }
@@ -160,7 +157,7 @@ export default function UserView(props) {
               type="text"
               onChange={ e => setField('username', e.target.value)}
               isInvalid={!!errors.username}
-              placeholder = {userData.Username}
+              placeholder = {user.Username}
             />
             <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
           </InputGroup>
@@ -193,7 +190,7 @@ export default function UserView(props) {
           <InputGroup hasValidation>
             <Form.Control
               type="text"
-              placeholder = {userData.Email}
+              placeholder = {user.Email}
               onChange={ e => setField('email', e.target.value)}
               isInvalid = {!!errors.email}
             />
@@ -218,6 +215,6 @@ export default function UserView(props) {
       </Card.Body>
     </Card>
   );
-
-
 }
+
+export default connect(mapStateToProps)(UserView);
