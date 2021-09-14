@@ -64,18 +64,12 @@ class MainView extends React.Component {
 
   //after login processing from login-view
   onLoggedIn(authData) {
-    // this.setState({
-    //   user: authData.user.Username
-    // });
     this.props.setUser(authData.user);
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user' , authData.user.Username);
   }
 
   onUpdate(userData) {
-    // this.setState({
-    //   user: userData.Username
-    // });
     localStorage.setItem('user' , userData.Username);
   }
 
@@ -92,7 +86,6 @@ class MainView extends React.Component {
     axios.get(`${API_ADDRESS}/users/${localStorage.getItem('user')}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
     }).then(response => {
-      //console.log(response);
       this.props.setUser(response.data);
       return response.data;
     }).catch(function (error) {
@@ -137,8 +130,6 @@ class MainView extends React.Component {
   render(){
 
     let { movies, user } = this.props;
-
-    //console.log(user, "main view render");
 
     const nav = <MyNavBar onLoggedOut = {() => this.onLoggedOut()} />
 
