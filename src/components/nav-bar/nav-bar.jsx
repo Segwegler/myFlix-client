@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
 
@@ -38,19 +39,28 @@ function MyNavBar(props){
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
             <Nav.Item>
-                <Nav.Link href="/">Home</Nav.Link>
+                <Link to={`/`}>
+                  <Button variant="link">Home</Button>
+                </Link>
             </Nav.Item>
 
             <Nav.Item className="ml-auto">
               {("Username" in props.user)
-                  ?<Nav.Link href={`/user`}>{props.user.Username}</Nav.Link>
-                  :<Nav.Link href='/login'>Login</Nav.Link>
+                  ?(<Link to={`/user`}>
+                      <Button variant="link">{props.user.Username}</Button>
+                    </Link>
+                   )
+                  :(<Link to={`/login`}>
+                      <Button variant="link">Login</Button>
+                    </Link>)
               }
             </Nav.Item>
             <Nav.Item>
               {("Username" in props.user)
-                  ? <Nav.Link onClick = {() => logout()}>logout</Nav.Link>
-                  : <Nav.Link href='/register'>Register</Nav.Link>
+                ?<Button variant="link" onClick = {() => logout()}>Logout</Button>
+                :(<Link to={`/register`}>
+                    <Button variant="link">Register</Button>
+                  </Link>)
               }
             </Nav.Item>
 
