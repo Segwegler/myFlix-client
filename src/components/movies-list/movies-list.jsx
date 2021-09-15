@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 //import redux connect function
 import { connect } from 'react-redux';
 
@@ -20,7 +20,6 @@ const mapStateToProps = state => {
 function MoviesList(props) {
   const { movies, visibilityFilter } = props;
   let filteredMovies = movies;
-  //console.log(props, "movieslist");
   if(visibilityFilter !== ''){
     filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
   }
@@ -40,3 +39,9 @@ function MoviesList(props) {
 }
 
 export default connect(mapStateToProps)(MoviesList);
+
+MoviesList.propTypes = {
+  visibilityFilter: PropTypes.string.isRequired,
+  addMovie: PropTypes.func.isRequired,
+  removeMovie: PropTypes.func.isRequired
+};

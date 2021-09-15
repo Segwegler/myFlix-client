@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
@@ -61,3 +62,15 @@ function MyNavBar(props){
 }
 
 export default connect(mapStateToProps)(MyNavBar);
+
+MyNavBar.propTypes = {
+  user:PropTypes.shape({
+    FavoriteMovies: PropTypes.array,
+    Birthday: PropTypes.string,
+    Password: PropTypes.string,
+    Username: PropTypes.string,
+    _id: PropTypes.string,
+    Email: PropTypes.string
+  }).isRequired,
+  onLoggedOut: PropTypes.func.isRequired
+};

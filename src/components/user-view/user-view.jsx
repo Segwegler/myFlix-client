@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -86,10 +86,6 @@ function UserView(props) {
     }).catch(function (error) {
       console.log(error);
     });
-  }
-
-  const removeMovie = (id) => {
-      props.removeMovie(id);
   }
 
   //Error checking functions
@@ -218,3 +214,14 @@ function UserView(props) {
 }
 
 export default connect(mapStateToProps)(UserView);
+
+UserView.propTypes = {
+  user:PropTypes.shape({
+    FavoriteMovies: PropTypes.array.isRequired,
+    Birthday: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Username: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired
+  }).isRequired
+};

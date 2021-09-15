@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -69,7 +70,6 @@ export default function RegistrationView(props){
         Email: form.email,
       }).then( response => {
         const data = response.data;
-        console.log(data);
         props.onBackClick();
       }).catch(e => {
         console.log('error registering the user');
@@ -131,3 +131,7 @@ export default function RegistrationView(props){
   );
 
 }
+
+RegistrationView.propTypes = {
+  onBackClick: PropTypes.func.isRequired
+};
