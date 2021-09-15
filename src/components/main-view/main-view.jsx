@@ -51,17 +51,6 @@ class MainView extends React.Component {
     });
   }
 
-  login(username, password) {
-    axios.post(`${API_ADDRESS}/login`, {
-      Username: username,
-      Password: password
-    }).then( response => {
-      this.onLoggedIn(response.data);
-    }).catch( e => {
-      console.log('user not found',e);
-    });
-  }
-
   //after login processing from login-view
   onLoggedIn(authData) {
     this.props.setUser(authData.user);
@@ -148,7 +137,7 @@ class MainView extends React.Component {
             <Route path="/login" render={({history}) => {
               if("Username" in user) return <Redirect to="/" />
               return <Col md={8}>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} login={(username, password) => this.login(username, password)} />
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
             }} />
 
