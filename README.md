@@ -8,3 +8,4 @@ Favorites can be removed wherever the movie is visable.
 Users can update their info on the profile page 
 Users can delete their account on the profile page
 
+[Link to project hosted on netlify](https://nsegler-myflix.netlify.app/)
