@@ -135,21 +135,21 @@ class MainView extends React.Component {
             }} />
 
             <Route path="/login" render={({history}) => {
-              if("Username" in user) return <Redirect to="/" />
+              if("Username" in user) return <Redirect to={{pathname:"/"}} />
               return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
             }} />
 
             <Route path="/register" render={({history}) => {
-              if("Username" in user) return <Redirect to="/" />
+              if("Username" in user) return <Redirect to={{pathname:"/"}} />
               return <Col md={8}>
                 <RegistrationView onBackClick={() => history.goBack()}/>
               </Col>
             }} />
 
             <Route path="/user" render={({history}) => {
-              if(!user) return <Redirect to="/login" />
+              if(!user) return <Redirect to={{pathname:"/login"}} />
               return <Col md={10}>
                 <UserView movies={movies} onLoggedOut={() => this.onLoggedOut()} removeMovie={id => this.removeMovie(id)} onUpdate={userData => this.onUpdate(userData)} onBackClick={() => history.goBack()}/>
               </Col>
